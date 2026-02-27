@@ -178,3 +178,15 @@ wss.on('connection', (ws: WebSocket) => {
 });
 
 console.log(`✓ Signaling server listening on ws://localhost:${PORT}`);
+
+function shutdown() {
+  console.log('\nShutting down…');
+  for (const ws of peers.keys()) {
+    ws.close();
+  }
+  wss.close(() => process.exit(0));
+  setTimeout(() => process.exit(0), 2000);
+}
+
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
