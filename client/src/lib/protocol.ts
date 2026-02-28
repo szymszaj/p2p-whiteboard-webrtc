@@ -14,8 +14,6 @@ export interface Stroke {
   points: Point[];
 }
 
-// ─── P2P DataChannel messages ────────────────────────────────────────────────
-
 export type P2PMessage =
   | { v: number; t: 'stroke'; d: Stroke }
   | {
