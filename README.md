@@ -151,28 +151,3 @@ npm run format
 npm run build
 # Output in client/dist/
 ```
-
-## Edge cases handled
-
-| Scenario               | Behavior                                                                                         |
-| ---------------------- | ------------------------------------------------------------------------------------------------ |
-| **Host disconnects**   | Remaining peer with lowest ID becomes new host, notified via signaling                           |
-| **Peer disconnects**   | Removed from peer list, WebRTC connection closed, other peers notified                           |
-| **Signaling drops**    | Auto-reconnect with exponential back-off (1s → 30s max)                                          |
-| **Large snapshots**    | WebRTC DataChannels handle fragmentation internally; backpressure check prevents buffer overflow |
-| **Message size limit** | Checked before send — messages dropped if DC buffer exceeds 640 KB                               |
-| **Protocol mismatch**  | Messages with unknown version are silently dropped with a console warning                        |
-| **Room full**          | Max 10 peers per room, enforced server-side                                                      |
-| **Concurrent undo**    | Each peer undoes only their own strokes — no conflicts possible                                  |
-
-## Demo
-
-1. `npm run dev` to start both servers
-2. Open `http://localhost:5173` in two browser windows side by side
-3. Create a room in one window → copy the invite link
-4. Paste the link in the other window
-5. Draw in either window — strokes appear on both in real-time!
-
-## License
-
-MIT
